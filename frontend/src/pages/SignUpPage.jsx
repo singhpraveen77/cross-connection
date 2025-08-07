@@ -29,7 +29,7 @@ const [signupData, setSignupData] = useState({
     }
     try {     
       SignupMutation(signupData);;
-      toast.success("Signup successful!");
+      
       setSignupData({ fullName: '', email: '', password: '' });
     } catch (error) {
       toast.error("Signup failed!");
@@ -59,7 +59,7 @@ const [signupData, setSignupData] = useState({
           {/* ERROR MESSAGE IF ANY */}
           {error && (
             <div className="alert alert-error mb-4">
-              <span>{error.response.data.message}</span>
+              <span>{error?.message}</span>
             </div>
           )}
 

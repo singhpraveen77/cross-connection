@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import useLogin from '../hooks/useLogin';
-import { ShipWheelIcon } from 'lucide-react';
+import { ShipWheelIcon, Squirrel } from 'lucide-react';
 import { Link } from 'react-router';
 import toast from 'react-hot-toast';
 
@@ -16,12 +16,13 @@ const LoginPage = () => {
 
   const {error,isPending,loginMutation}=useLogin()
   
+  
  async function handleLogin(e) {
   e.preventDefault();
   try {
     await loginMutation(loginData);
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error?.message);
   }
 }
   
@@ -36,7 +37,7 @@ const LoginPage = () => {
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
           {/* LOGO */}
           <div className="mb-4 flex items-center justify-start gap-2">
-            <ShipWheelIcon className="size-9 text-primary" />
+             <Squirrel className="size-9 " />
             <span className="text-3xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary  tracking-wider">
               Kukii !!
             </span>
@@ -45,7 +46,7 @@ const LoginPage = () => {
           {/* ERROR MESSAGE DISPLAY */}
           {error && (
             <div className="alert alert-error mb-4">
-              <span>{error.response.data.message}</span>
+              <span>{error?.message}</span>
             </div>
           )}
 
@@ -82,7 +83,7 @@ const LoginPage = () => {
                       type="password"
                       placeholder="••••••••"
                       className="input input-bordered w-full"
-                      value={loginData.password}
+                      value={loginData?.password}
                       onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                       required
                     />

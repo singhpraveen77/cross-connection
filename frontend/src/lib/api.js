@@ -1,38 +1,48 @@
 import axiosInstance from "./axios";
 
-const signup= async (signupdata)=>{
-    const response=await axiosInstance.post("/auth/signup",signupdata);
-    return response.data;
-}
 
-const getAuthUser= async ()=>{
-      try {
-        const res=await axiosInstance.get("/auth/me");
-        return res.data;
-      } catch (error) {
-       
-        return null;
-      }
-    }
-
-const loginfun= async ({email,password})=>{
-   try {
-    const res= await axiosInstance.post("/auth/login",{email,password})
+const signup = async (signupData) => {
+  try {
+    const res = await axiosInstance.post("/auth/signup", signupData);
     return res.data;
-    
-   } catch (error) {
-    throw error;
-   }
-}
+  } catch (error) {
+    console.log("error in sin api:",error);
+    throw error?.response?.data || { message: "Signup failed" };
+  }
+};
 
-const logoutfun= async ()=>{
-    try {
-        const res= await axiosInstance.post("/auth/logout") 
-        return res.data;
-    } catch (error) {
-        
-    }
-}
+const getAuthUser = async () => {
+  try {
+    const res = await axiosInstance.get("/auth/me");
+    return res.data;
+  } catch (error) {
+    console.log("error in get auth api :",error);
+    return null; // User not logged in
+  }
+};
+
+
+const loginfun = async ({ email, password }) => {
+  try {
+    const res = await axiosInstance.post("/auth/login", { email, password });
+    return res.data;
+  } catch (error) {
+    console.log("error in login api :",error);
+    // This will ensure React Query's onError triggers properly
+    throw error?.response?.data || { message: "Login failed" };
+  }
+};
+
+
+const logoutfun = async () => {
+  try {
+    const res = await axiosInstance.post("/auth/logout");
+    return res.data;
+  } catch (error) {
+    console.log("error in logout api  :",error);
+    throw error?.response?.data || { message: "Logout failed" };
+  }
+};
 
 const completeOnboardingMutation= async(userdata)=>{
     const res= await axiosInstance.post("/auth/onboarding",userdata)

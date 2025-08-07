@@ -71,6 +71,7 @@ const signup=async (req,res)=>{
       });
       
     } catch (error) {
+      console.log("error in sin backend :",error);
       
     }
 
@@ -92,13 +93,15 @@ const signup=async (req,res)=>{
         message:"user created successfully !!"
     })
 }
-    catch(err){
-        
-        return res.status(500).json({
-            message:err
-        })
-    }
+    catch (err) {
+    console.error("Signup error:", err.message);
+    return res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+        error: err.message, // Optional: more readable
+    });
 
+}
 }
 
 
@@ -151,14 +154,14 @@ const login= async(req,res)=>{
         message:"login successfully !!"
     })
 }
-    catch(err){
-        
-        return res.status(500).json({
-            message:err
-        })
-    }
-
-    
+    catch (err) {
+    console.error("Login error:", err.message); // optional logging
+    return res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+        error: err.message // for debugging
+    });
+}
 }
 
 
@@ -214,6 +217,7 @@ const onboard=async (req,res)=>{
 
 
   } catch (error) {
+    console.log("update user:",error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
