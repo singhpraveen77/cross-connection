@@ -78,7 +78,7 @@ userSchema.pre("save",async function ( next){
         next();
     }
     catch(err){
-        console.log("pass hashing error :",err);
+      
         next(err);
     }
 })
