@@ -111,7 +111,6 @@ const acceptFriendRequest= async  (req, res)=>{
     res.status(200).json({ message: "Friend request accepted" });
   } 
     catch (error) {
-    console.log("Error in acceptFriendRequest controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 
@@ -131,7 +130,6 @@ const getFriendRequests = async(req, res)=>{
 
     res.status(200).json({ incomingReqs, acceptedReqs });
   } catch (error) {
-    console.log("Error in getPendingFriendRequests controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -144,7 +142,6 @@ const getOutgoingFriendReqs =  async(req, res)=>{
 
     res.status(200).json(outgoingRequests);
   } catch (error) {
-    console.log("Error in getOutgoingFriendReqs controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
