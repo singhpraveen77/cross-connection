@@ -13,10 +13,15 @@ const app= express();
 app.use(express.json());
 app.use(cookieParser())
 
+const allowedOrigins = [
+  "https://kukiii.onrender.com", 
+  "http://localhost:5173"        
+];
+
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
-}))
+  origin: allowedOrigins,
+  credentials: true
+}));
 
 // app.use(cors());
 
