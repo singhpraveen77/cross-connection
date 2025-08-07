@@ -1,0 +1,56 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# MongoDB
+dump/
+*.lock
+
+# Build outputs
+dist/
+build/
+public/build/
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# React development
+*.local
+.cache/
+.vite/
+.vscode/
+
+# IDEs
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Optional if using Docker
+docker-compose.override.yml
+.docker/
+
+# Optional if using Firebase or similar tools
+.firebaserc
+firebase-debug.log
+
+# Optional: Next.js or Vite (in case you use them)
+.next/
+out/
