@@ -1,13 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginfun } from "../lib/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 
 
 const useLogin = () => {
   
     const queryClient= useQueryClient();
-    
+    const navigate=useNavigate()
 
     const {mutate,error ,isPending}=useMutation({
         mutationFn:loginfun,
@@ -16,7 +17,8 @@ const useLogin = () => {
             queryClient.invalidateQueries({queryKey:["authUser"]});
         },
         onError:()=>{
-            toast.error("Wrong Credentials !!")
+            toast.error("Wrong Credentials !!"),
+            navigate("/login")
         }
         
     })

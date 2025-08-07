@@ -16,12 +16,14 @@ const LoginPage = () => {
 
   const {error,isPending,loginMutation}=useLogin()
   
-  function handleLogin(e){
-    e.preventDefault();
-
-   
-    loginMutation(loginData);
+ async function handleLogin(e) {
+  e.preventDefault();
+  try {
+    await loginMutation(loginData);
+  } catch (error) {
+    toast.error(error.message);
   }
+}
   
   
   return (
