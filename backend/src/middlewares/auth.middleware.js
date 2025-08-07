@@ -20,10 +20,8 @@ const protectRoute=async (req,res,next) => {
         })
     }
     
-    // console.log("decoded from protected:",decoded);
      
     const user= await User.findById(decoded.userId).select("-password");
-    // console.log("user from protected:",user);
 
     
     if(!user){
@@ -38,7 +36,6 @@ const protectRoute=async (req,res,next) => {
 }
 
 catch(err){
-    console.log("error in protectRoute middleware:",err);
     return res.status(500).json({
         message:"error in protect route :",
     })
