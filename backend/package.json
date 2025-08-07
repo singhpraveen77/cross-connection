@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/server.js"
-
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,10 +20,10 @@
     "express": "^4.21.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
-    "stream-chat": "^8.60.0"
+    "stream-chat": "^8.60.0",
+    "streamify": "file:.."
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
   }
-  
 }

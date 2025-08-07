@@ -4,7 +4,6 @@ import { upsertStreamUser } from "../db/stream.js";
 
 
 const signup=async (req,res)=>{
-    console.log("reached signup !!")
 
     try{
     const {email,password,fullName}=req.body;
@@ -50,7 +49,7 @@ const signup=async (req,res)=>{
     const randomAvatar=`https://avatar.iran.liara.run/public/${idx}.png`
 
 
-    //create 
+  
 
     const newUser= await User.create({
         fullName,
@@ -70,9 +69,9 @@ const signup=async (req,res)=>{
         name: newUser.fullName,
         image: newUser.profilePic || "",
       });
-      console.log(`Stream user created for ${newUser.fullName}`);
+      
     } catch (error) {
-      console.log("Error creating Stream user:", error);
+      
     }
 
 
@@ -80,12 +79,6 @@ const signup=async (req,res)=>{
         expiresIn:"7d"
     })
 
-    // res.cookie("jwt",token,{
-    //     maxAge:7*24*60*60*1000,
-    //     httpOnly:true , //xss attacks
-    //     sameSite:"strict", //CSRF attacks
-    //     secure:process.env.NODE_ENV === "production"
-    // })
     res.cookie("jwt",token,{
         maxAge:7*24*60*60*1000,
         httpOnly:true , //xss attacks
@@ -100,7 +93,7 @@ const signup=async (req,res)=>{
     })
 }
     catch(err){
-        console.log("error in signup controller :",err);
+        
         return res.status(500).json({
             message:err
         })
@@ -159,7 +152,7 @@ const login= async(req,res)=>{
     })
 }
     catch(err){
-        console.log("error in login controller :",err)
+        
         return res.status(500).json({
             message:err
         })
@@ -214,17 +207,13 @@ const onboard=async (req,res)=>{
         name: updatedUser.fullName,
         image: updatedUser.profilePic || "",
       });
-      console.log(`Stream user updated after onboarding for ${updatedUser.fullName}`);
     } catch (streamError) {
-      console.log("Error updating Stream user during onboarding:", streamError.message);
     }
 
-    console.log("onboardedbackend !!")
     res.status(200).json({ success: true, user: updatedUser });
 
 
   } catch (error) {
-    console.error("Onboarding error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
