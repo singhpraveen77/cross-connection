@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import useLogin from '../hooks/useLogin';
-import { ShipWheelIcon, Squirrel } from 'lucide-react';
+import { Squirrel } from 'lucide-react';
 import { Link } from 'react-router';
 import toast from 'react-hot-toast';
 
@@ -17,10 +17,10 @@ const LoginPage = () => {
   const {error,isPending,loginMutation}=useLogin()
   
   
- async function handleLogin(e) {
+  function handleLogin(e) {
   e.preventDefault();
   try {
-    await loginMutation(loginData);
+     loginMutation(loginData);
   } catch (error) {
     toast.error(error?.message);
   }
@@ -32,6 +32,7 @@ const LoginPage = () => {
       className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
       data-theme="forest"
     >
+      
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
         {/* LOGIN FORM SECTION */}
         <div className="w-full lg:w-1/2 p-4 sm:p-8 flex flex-col">
@@ -49,6 +50,7 @@ const LoginPage = () => {
               <span>{error?.message}</span>
             </div>
           )}
+          
 
           <div className="w-full">
             <form onSubmit={handleLogin}>

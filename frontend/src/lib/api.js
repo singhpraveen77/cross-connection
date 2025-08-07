@@ -37,6 +37,8 @@ const loginfun = async ({ email, password }) => {
 const logoutfun = async () => {
   try {
     const res = await axiosInstance.post("/auth/logout");
+    console.log("logout data :",res.data);
+    
     return res.data;
   } catch (error) {
     console.log("error in logout api  :",error);

@@ -49,5 +49,6 @@ if(process.env.NODE_ENV==="production"){
 }
 
 app.listen(Port,()=>{
+    console.log("server at port :",Port);
     
 })
