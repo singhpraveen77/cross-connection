@@ -8,11 +8,9 @@ const database=async()=>{
             
         )
         .then(()=>{
-            console.log("mongodb connected !! ")
         })
     }
     catch(err){
-        console.log("error in the database  :",err);
     }
 }
 
