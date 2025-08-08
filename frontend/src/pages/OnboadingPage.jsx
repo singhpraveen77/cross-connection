@@ -15,7 +15,7 @@ const OnboadingPage = () => {
     const queryClient=useQueryClient();
     const authUser=useAuthUser();
 
-    const [imgloading,setImageLoading]=useState(false);
+    const [imgloading,setImageLoading]=useState(true);
 
     const [imgError,setImageError]=useState(false);
 
@@ -39,27 +39,55 @@ const OnboadingPage = () => {
 
 
 
-    const handleRandomAvatar = () => {
-        setImageLoading(true)
-        setImageError(false);
-        const idx = Math.floor(Math.random() * 100) + 1; // 1-100 included
-        const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+  const handleRandomAvatar = () => {
+    setImageLoading(true);
+    setImageError(false);
 
-        const img=new Image();
-        img.src=randomAvatar;
+  const idx = Math.floor(Math.random() * 100) + 1;
+  const randomAvatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${idx}`;
 
-        img.onload=()=>{
-            setFormState({ ...formState, profilePic: randomAvatar });
-            toast.success("Random profile picture generated!");
-            setImageLoading(false)
-        }
+  const img = new Image();
+  img.src = randomAvatar;
 
-        img.onError=()=>{
-            setImageError(true);
-        }
-
-    
+  img.onload = () => {
+    setFormState({ ...formState, profilePic: randomAvatar });
+    toast.success("Random profile picture generated!");
+    setImageLoading(false);
   };
+
+  img.onerror = () => {
+    // First fallback: dicebear
+    const dicebear = `https://avatar.iran.liara.run/public/${idx}.png`;
+    const dicebearImg = new Image();
+    dicebearImg.src = dicebear;
+
+    dicebearImg.onload = () => {
+      setFormState({ ...formState, profilePic: dicebear });
+      toast.info("Using backup Dicebear avatar.");
+      setImageLoading(false);
+    };
+
+    dicebearImg.onerror = () => {
+      // Final fallback: local image in public folder
+      const fallbackLocal = "/adventurer-1754655964787.png"; // use absolute path
+      const localImg = new Image();
+      localImg.src = fallbackLocal;
+
+      localImg.onload = () => {
+        setFormState({ ...formState, profilePic: fallbackLocal });
+        toast.info("Using local fallback avatar.");
+        setImageLoading(false);
+      };
+
+      localImg.onerror = () => {
+        toast.error("All avatar sources failed.");
+        setImageError(true);
+        setImageLoading(false);
+      };
+    };
+  };
+};
+
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -91,11 +119,21 @@ const OnboadingPage = () => {
                             />
                            
                     ):(
-                        <img
-                    src={formState.profilePic}
-                    alt="Profile Preview"
-                    className="w-full h-full object-cover"
-                  />
+                        imgError ? (
+                            <img src="/adventurer-1754655964787.png" alt="Fallback Avatar" />
+                          ) : (
+                            <img
+                              src={formState.profilePic}
+                              alt="Profile Preview"
+                              className="w-full h-full object-cover"
+                              onLoad={() => setImageLoading(false)}
+                              onError={() => {
+                                toast.error("Failed to load profile image.");
+                                setImageError(true);
+                                setImageLoading(false);
+                              }}
+                            />
+                          )
                     )
                   
                 ) : (

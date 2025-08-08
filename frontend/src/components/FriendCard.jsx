@@ -3,6 +3,10 @@ import { LANGUAGE_TO_FLAG } from "../constants";
 
 const FriendCard = ({ friend }) => {
   
+  console.log("friend from card :",friend);
+  console.log("profile from card :",friend.profilePic);
+
+  
   
 
   return (

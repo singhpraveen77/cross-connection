@@ -27,6 +27,8 @@ const HomePage = () => {
     queryFn: getUserFriends,
   });
 
+  console.log("friends",friends);
+
   const { data: recommendedUsers = [], isLoading: loadingUsers } = useQuery({
     queryKey: ["users"],
     queryFn: getRecommendedUsers,
